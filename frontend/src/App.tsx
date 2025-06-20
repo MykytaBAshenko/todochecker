@@ -1,0 +1,41 @@
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
+import PrivateRoute from "./routing/PrivateRoute";
+import PublicRoute from "./routing/PublicRoute";
+import Register from "./pages/Register";
+import SignIn from "./pages/SignIn";
+import Booking from "./pages/Booking";
+import Messanger from "./pages/Messanger";
+import Home from "./pages/Home";
+
+const App = () => {
+  return (
+    <Router>
+      <Routes>
+        {/* Public Routes Group */}
+        <Route element={<PublicRoute />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/sign-in" element={<SignIn />} />
+        </Route>
+
+        {/* Private Routes Group */}
+        <Route element={<PrivateRoute />}>
+          <Route path="/dashboard" element={<Booking />} />
+          <Route path="/messanger" element={<Messanger />} />
+          <Route path="/group" element={<Messanger />} />
+
+        </Route>
+
+        {/* Fallback */}
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </Router>
+  );
+};
+
+export default App;

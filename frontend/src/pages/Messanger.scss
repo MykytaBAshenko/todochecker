@@ -1,0 +1,161 @@
+.messanger {
+  display: grid;
+  height: 100%;
+  grid-template-columns: auto 1fr;
+
+  input {
+    border: 2px solid black;
+    padding: 0.5rem 0.5rem;
+    min-width: 20rem;
+    background-color: transparent;
+    &::placeholder {
+      color: black;
+    }
+  }
+
+  button {
+    width: 2.5rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    justify-content: center;
+    height: 2.5rem;
+    border: 2px solid black;
+    background-color: transparent;
+    svg {
+      height: 1.5rem;
+      width: 1.5rem;
+      fill: black;
+    }
+    &:hover {
+      background-color: black;
+      svg {
+        fill: white;
+      }
+    }
+  }
+  .messanger-sidebar {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    .messanger-sidebar-action {
+      display: grid;
+      background-color: black;
+      grid-template-columns: 1fr auto;
+      gap: 1rem;
+      padding: 1rem;
+      input {
+        border-color: white;
+        &::placeholder {
+          color: white;
+        }
+        color: white;
+      }
+      button {
+        border-color: white;
+        transition: 0.5s;
+        svg {
+          fill: white;
+        }
+        &:hover {
+          background-color: white;
+          svg {
+            fill: black;
+          }
+        }
+      }
+    }
+    .messanger-sidebar-chats {
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 0.5rem;
+      .chat-item {
+        display: grid;
+        cursor: pointer;
+        padding: 0.5rem;
+        gap: 0.5rem;
+        grid-template-columns: auto 1fr auto;
+        canvas {
+          border-radius: 50%;
+        }
+        &:hover {
+          background-color: black;
+          color: white;
+        }
+        &.active-chat {
+          background-color: black;
+          color: white;
+        }
+      }
+    }
+  }
+
+  .new-chat {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    .new-chat-container {
+      display: grid;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+
+      .new-chat-start {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 0.5rem;
+      }
+    }
+  }
+  .chat-combiner {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    .chat-body {
+      position: relative;
+      height: 100%; /* Or a fixed height like 400px if not inside a flex container */
+      overflow: hidden; /* Prevent scroll bleed */
+      .chat-body-scroll {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        overflow-y: auto;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+
+      }
+    }
+    .chat-control {
+      padding: 1rem;
+      background-color: black;
+      .chat-control-input {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 1rem;
+        input {
+          color: white;
+          border-color: white;
+          &::placeholder {
+            color: white;
+          }
+        }
+        button {
+          border-color: white;
+          transition: 0.5s;
+          svg {
+            fill: white;
+          }
+          &:hover {
+            background-color: white;
+            svg {
+              fill: black;
+            }
+          }
+        }
+      }
+    }
+  }
+}

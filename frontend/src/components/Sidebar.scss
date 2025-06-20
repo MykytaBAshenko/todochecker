@@ -1,0 +1,53 @@
+.sidebar{
+    height: 100%;
+    max-height: 100vh;
+    background-color: black;
+    > * {
+        height: 100%;
+        max-height: 100%;
+        display: grid;
+        align-items: center;
+        grid-template-rows: auto 1fr;
+    }
+    .sidebar-controll{
+        display: flex;
+        align-items: center;
+        justify-items: center;
+        padding:1.5rem 1rem;
+        gap: .5rem;
+        svg {
+            fill: white;
+            height: 1.5rem;
+            width: 1.5rem;
+            cursor: pointer;
+            &:hover {
+                color: lime;
+                fill: lime;
+            }
+        }
+        a{
+           height: 1.5rem;
+           &:hover {
+            color: lime;
+        }
+        }
+    }
+    nav {
+        display: grid;
+        padding: 1rem;
+        justify-content: center;
+        gap: 2rem;
+        a{
+            color: white;
+            font-size: 1.3rem;
+            gap: .5rem;
+            display: flex;
+            align-items: center;
+            justify-content: left;
+            svg {
+                width: 1.5rem;
+                height: 1.5rem;
+            }
+        }
+    }
+}
