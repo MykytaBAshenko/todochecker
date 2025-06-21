@@ -6,7 +6,7 @@ import { showToast } from './slices/toastSlice';
 
 import { addGroupedMessage, deleteConversationGroupedMessage } from './slices/userMessagesSlice';
 import { addNewUserMessanger, deleteUserMessanger } from './slices/userMessagesUsersSlice';
-
+const serverUrl = import.meta.env.VITE_API_BASE_URL;
 
 type WebSocketContextType = WebSocket | null;
 
@@ -34,7 +34,7 @@ export const WebSocketProvider: React.FC<Props> = ({ children }) => {
       return;
     }
 
-    const ws = new WebSocket(`ws://localhost:8080/ws?token=${storedToken}`);
+    const ws = new WebSocket(`ws://${serverUrl}/ws?token=${storedToken}`);
     socketRef.current = ws;
 
     ws.onopen = () => {

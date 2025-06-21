@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+	"os"
 	"server/config"
 	"server/routes"
 	"server/ws"
@@ -18,6 +20,7 @@ func RegisterWS(r *gin.Engine) {
 }
 
 func main() {
+	fmt.Println("🚀 Server starting")
 	// Connect to the database
 	config.ConnectDatabase()
 	r := gin.Default()
@@ -36,5 +39,9 @@ func main() {
 	RegisterWS(r)
 
 	// Run the server
-	r.Run(":8080")
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "80" // fallback default
+	}
+	r.Run(":" + port)
 }
