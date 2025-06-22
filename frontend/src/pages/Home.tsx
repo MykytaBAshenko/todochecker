@@ -1,6 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
-import * as apiClient from "../api-client";
-import LatestDestinationCard from "../components/LastestDestinationCard";
+// import { useQuery } from "@tanstack/react-query";
+// import * as apiClient from "../api-client";
+// import LatestDestinationCard from "../components/LastestDestinationCard";
 
 const Home = () => {
   // const { data: hotels } = useQuery({
