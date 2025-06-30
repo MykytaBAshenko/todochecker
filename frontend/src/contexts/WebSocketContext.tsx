@@ -6,11 +6,11 @@ import { showToast } from './slices/toastSlice';
 
 import { addGroupedMessage, deleteConversationGroupedMessage } from './slices/userMessagesSlice';
 import { addNewUserMessanger, deleteUserMessanger } from './slices/userMessagesUsersSlice';
-const serverUrl = import.meta.env.VITE_API_BASE_URL;
 
 type WebSocketContextType = WebSocket | null;
 
 const WebSocketContext = createContext<WebSocketContextType>(null);
+const serverWS = import.meta.env.VITE_API_BASE_SOCKET_PROTOCOL + import.meta.env.VITE_API_BASE_URL || "";
 
 export const useWebSocket = (): WebSocketContextType => {
   return useContext(WebSocketContext);
@@ -34,7 +34,7 @@ export const WebSocketProvider: React.FC<Props> = ({ children }) => {
       return;
     }
 
-    const ws = new WebSocket(`ws://${serverUrl}/ws?token=${storedToken}`);
+    const ws = new WebSocket(`${serverWS}/ws?token=${storedToken}`);
     socketRef.current = ws;
 
     ws.onopen = () => {
