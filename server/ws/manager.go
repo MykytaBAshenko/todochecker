@@ -88,9 +88,74 @@ func WebSocketHandler(c *gin.Context) {
 		// 	handleDeleteMessage(userID, raw, conn)
 		case "delete_conversation":
 			handleDeleteConversation(userID, raw, conn)
+		case "invite_game":
+			handleInviteGame(userID, raw)
+		case "invite_response":
+			handleInviteResponse(userID, raw)
+		case "game_move":
+			handleGameMove(userID, raw)
 		default:
 			fmt.Println("Unknown message type")
 		}
+	}
+}
+
+func handleInviteGame(senderID uint, raw map[string]interface{}) {
+	toID := uint(raw["to"].(float64))
+	payload := map[string]interface{}{
+		"type": "invite_game",
+		"data": gin.H{
+			"from": senderID,
+		},
+	}
+
+	mu.Lock()
+	defer mu.Unlock()
+
+	if conn, ok := connectedUsers[toID]; ok {
+		conn.WriteJSON(payload)
+	}
+}
+
+func handleInviteResponse(userID uint, raw map[string]interface{}) {
+	toID := uint(raw["to"].(float64))
+	accepted := raw["accepted"].(bool)
+
+	payload := map[string]interface{}{
+		"type": "invite_response",
+		"data": gin.H{
+			"from":     userID,
+			"accepted": accepted,
+		},
+	}
+
+	mu.Lock()
+	defer mu.Unlock()
+
+	if conn, ok := connectedUsers[toID]; ok {
+		conn.WriteJSON(payload)
+	}
+}
+
+func handleGameMove(userID uint, raw map[string]interface{}) {
+	toID := uint(raw["to"].(float64))
+	row := int(raw["row"].(float64))
+	col := int(raw["col"].(float64))
+
+	payload := map[string]interface{}{
+		"type": "game_move",
+		"data": gin.H{
+			"from": userID,
+			"row":  row,
+			"col":  col,
+		},
+	}
+
+	mu.Lock()
+	defer mu.Unlock()
+
+	if conn, ok := connectedUsers[toID]; ok {
+		conn.WriteJSON(payload)
 	}
 }
 

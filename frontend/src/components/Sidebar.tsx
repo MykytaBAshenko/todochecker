@@ -25,6 +25,12 @@ const DefaultSidebar = () => {
           >
                         <FaBars /> { isOpen ? "Messanger" : null}
           </NavLink>
+                    <NavLink
+            to="/games"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+                        <FaBars /> { isOpen ? "Games" : null}
+          </NavLink>
         </nav>
       </div>
     );

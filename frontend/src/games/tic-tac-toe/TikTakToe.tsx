@@ -108,7 +108,7 @@ const Chat = ({ activeToUserId, selectedChat }) => {
   );
 };
 
-const Messanger = () => {
+const TikTakToe = () => {
   const socket = useWebSocket();
   const users = useSelector(
     (state: RootState) => state.usermessagesusers.groupedUsers
@@ -231,3 +231,56 @@ const Messanger = () => {
 };
 
 export default Messanger;
+
+
+const TicTacToeGame = ({ socket, opponentId }) => {
+  const [board, setBoard] = useState(Array(3).fill(Array(3).fill("")));
+  const [isMyTurn, setIsMyTurn] = useState(true);
+
+  useEffect(() => {
+    const handler = (event) => {
+      const { type, data } = JSON.parse(event.data);
+      if (type === "game_move") {
+        const newBoard = [...board];
+        newBoard[data.row][data.col] = "O";
+        setBoard(newBoard);
+        setIsMyTurn(true);
+      }
+    };
+    socket.addEventListener("message", handler);
+    return () => socket.removeEventListener("message", handler);
+  }, [board]);
+
+  const makeMove = (row, col) => {
+    if (!isMyTurn || board[row][col] !== "") return;
+
+    const newBoard = board.map((r, i) =>
+      r.map((cell, j) => (i === row && j === col ? "X" : cell))
+    );
+    setBoard(newBoard);
+    setIsMyTurn(false);
+
+    socket.send(
+      JSON.stringify({
+        type: "game_move",
+        to: opponentId,
+        row,
+        col,
+      })
+    );
+  };
+
+  return (
+    <div className="tic-tac-toe-board">
+      {board.map((row, i) =>
+        row.map((cell, j) => (
+          <button key={`${i}-${j}`} onClick={() => makeMove(i, j)}>
+            {cell}
+          </button>
+        ))
+      )}
+    </div>
+  );
+};
+
+export default TicTacToe;

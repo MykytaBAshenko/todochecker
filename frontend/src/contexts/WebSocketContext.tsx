@@ -34,6 +34,11 @@ export const WebSocketProvider: React.FC<Props> = ({ children }) => {
       return;
     }
 
+
+    // if (!storedToken || socketRef.current?.readyState === WebSocket.OPEN) {
+    //   return;
+    // }
+
     const ws = new WebSocket(`${serverWS}/ws?token=${storedToken}`);
     socketRef.current = ws;
 
@@ -106,8 +111,9 @@ export const WebSocketProvider: React.FC<Props> = ({ children }) => {
   };
 
   useEffect(() => {
-    connectWebSocket();
-
+    if (user) {
+      connectWebSocket();
+    }
     return () => {
       if (socketRef.current) {
         socketRef.current.close();

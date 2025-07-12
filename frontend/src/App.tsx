@@ -10,7 +10,9 @@ import Register from "./pages/Register";
 import SignIn from "./pages/SignIn";
 import Booking from "./pages/Booking";
 import Messanger from "./pages/Messanger";
+import Games from "./pages/Games";
 import Home from "./pages/Home";
+import TikTakToe from "./games/tic-tac-toe/TikTakToe";
 
 const App = () => {
   return (
@@ -28,6 +30,8 @@ const App = () => {
           <Route path="/dashboard" element={<Booking />} />
           <Route path="/messanger" element={<Messanger />} />
           <Route path="/group" element={<Messanger />} />
+          <Route path="/games" element={<Games />} />
+          <Route path="/games/tik-tak-toe" element={<TikTakToe />} />
 
         </Route>
 
